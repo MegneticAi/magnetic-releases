@@ -1,0 +1,131 @@
+name: Build macOS
+
+# Builds the Magnetic DMGs from the private source repo on matching hardware (Apple silicon
+# on arm64, Intel on x64, so native modules match the CPU) using free public-repo runners,
+# then publishes them to this repo's release + signed latest.json.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Source branch, tag or commit in MegneticAi/MegneticAi
+        default: main
+        type: string
+      arch:
+        description: Which Mac builds
+        type: choice
+        default: both
+        options: [both, arm64, x64]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magnetic-macos-${{ inputs.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            file_arch: arm64
+            runner: macos-14
+          - arch: x64
+            file_arch: x86_64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: src/magentic.ai_editor
+    steps:
+      - name: Skip unselected arch
+        id: pick
+        working-directory: ${{ github.workspace }}
+        run: |
+          if [ "${{ inputs.arch }}" = both ] || [ "${{ inputs.arch }}" = "${{ matrix.arch }}" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: src
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          node-version-file: src/magentic.ai_editor/.nvmrc
+          cache: npm
+          cache-dependency-path: src/magentic.ai_editor/package-lock.json
+      - name: Check runner architecture
+        if: steps.pick.outputs.run == 'true'
+        run: |
+          echo "runner: $(uname -m), node: $(node -p process.arch)"
+          [[ "$(node -p process.arch)" == "${{ matrix.arch }}" ]]
+      # Full install (with install scripts) so native modules are built for this CPU.
+      - run: npm ci
+        if: steps.pick.outputs.run == 'true'
+      - name: Build app + DMG
+        if: steps.pick.outputs.run == 'true'
+        env:
+          NODE_HEAP_MB: '5120'
+        run: ./scripts/build-macos-local.sh ${{ matrix.arch }} --dmg --low-mem
+      - name: Verify app
+        if: steps.pick.outputs.run == 'true'
+        run: |
+          VERSION="$(node -p "require('./product.json').magneticVersion")"
+          ./scripts/verify-macos-app.sh "../Magnetic-darwin-${{ matrix.arch }}/Magnetic.app" ${{ matrix.file_arch }} "$VERSION"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          name: Magnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}
+          path: src/magentic.ai_editor/Magnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}.dmg
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    needs: build
+    # Publish whichever arch built.
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: magnetic-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: releases
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: src
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Magnetic-*-darwin-*
+          merge-multiple: true
+          path: assets
+      - name: Publish DMGs + signed latest.json
+        working-directory: src/magentic.ai_editor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAGNETIC_UPDATE_SIGNING_KEY: ${{ secrets.MAGNETIC_UPDATE_SIGNING_KEY }}
+        run: |
+          VERSION="$(node -p "require('./product.json').magneticVersion")"
+          pairs=()
+          for arch in arm64 x64; do
+            file="$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-darwin-$arch.dmg"
+            [ -f "$file" ] && pairs+=("darwin-$arch=$file")
+          done
+          [ "${#pairs[@]}" -gt 0 ] || { echo "No DMGs were built" >&2; exit 1; }
+          ./scripts/publish-public-release.sh "$VERSION" "$GITHUB_WORKSPACE/releases" "${pairs[@]}"

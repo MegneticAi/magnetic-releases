@@ -1,0 +1,135 @@
+name: Build Windows
+
+# Builds the Magnetic Windows installer from the private source repo on free public-repo
+# runners and publishes it to this repo's release + signed latest.json.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Magnetic version without a leading v (must match product.json)
+        required: true
+        type: string
+      ref:
+        description: Source branch, tag or commit in MegneticAi/MegneticAi
+        default: main
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magnetic-windows-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: bash
+        working-directory: src/magentic.ai_editor
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: src
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: src/magentic.ai_editor/.nvmrc
+          cache: npm
+          cache-dependency-path: src/magentic.ai_editor/package-lock.json
+      - name: Install Python
+        id: py
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: microsoft/setup-msbuild@v2
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Point node-gyp at MSVC / Python 3.11
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vs = $null
+          if (Test-Path $vswhere) {
+            $vs = & $vswhere -latest -products * -version "[17.0,18.0)" `
+              -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+              -property installationPath
+            if (-not $vs) {
+              $vs = & $vswhere -latest -products * `
+                -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+                -property installationPath
+            }
+          }
+          if (-not $vs) { throw "No Visual Studio C++ toolchain found for node-gyp" }
+          Write-Host "Using Visual Studio at $vs"
+          "VCINSTALLDIR=$vs\VC\" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "GYP_MSVS_VERSION=2022" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "npm_config_msvs_version=2022" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          npm config set msvs_version 2022
+          npm install -g node-gyp@11
+          $nodeGyp = Join-Path (npm root -g) "node-gyp\bin\node-gyp.js"
+          "npm_config_node_gyp=$nodeGyp" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - run: npm ci
+        env:
+          npm_config_python: ${{ steps.py.outputs.python-path }}
+          PYTHON: ${{ steps.py.outputs.python-path }}
+      - name: Check version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          HAVE="$(node -p "require('./product.json').magneticVersion")"
+          test "${INPUT_VERSION#v}" = "$HAVE" || { echo "product.json is $HAVE, not $INPUT_VERSION" >&2; exit 1; }
+      - name: Build Windows installer
+        env:
+          SKIP_GH_RELEASE: '1'
+          SKIP_MANIFEST: '1'
+          NODE_OPTIONS: '--max-old-space-size=12288'
+          npm_config_python: ${{ steps.py.outputs.python-path }}
+          PYTHON: ${{ steps.py.outputs.python-path }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: ./scripts/release-local.sh "${INPUT_VERSION#v}" win32-x64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: magnetic-windows-x64
+          if-no-files-found: error
+          retention-days: 14
+          path: src/magentic.ai_editor/Magnetic-*-win32-x64-setup.exe
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: magnetic-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: releases
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: src
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: magnetic-windows-x64
+          path: assets
+      - name: Publish release asset + signed latest.json
+        working-directory: src/magentic.ai_editor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAGNETIC_UPDATE_SIGNING_KEY: ${{ secrets.MAGNETIC_UPDATE_SIGNING_KEY }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION="${INPUT_VERSION#v}"
+          ./scripts/publish-public-release.sh "$VERSION" "$GITHUB_WORKSPACE/releases" \
+            "win32-x64=$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-win32-x64-setup.exe"
