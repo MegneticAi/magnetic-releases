@@ -1,0 +1,74 @@
+name: Sign manifest
+
+# Adds installers that are already attached to release v<version> (uploaded by hand or by
+# another run) to the signed latest.json, so the editor's auto-update and the landing's
+# download dialog pick them up.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Magnetic version without a leading v
+        required: true
+        type: string
+      platforms:
+        description: Space-separated platform keys, e.g. "darwin-arm64 darwin-x64"
+        required: true
+        type: string
+      ref:
+        description: Source branch, tag or commit in MegneticAi/MegneticAi (for the release scripts)
+        default: main
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magnetic-publish
+  cancel-in-progress: false
+
+jobs:
+  sign:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: releases
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          # Read-only deploy key on MegneticAi/MegneticAi.
+          ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
+          path: src
+          persist-credentials: false
+      - name: Download the release installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_PLATFORMS: ${{ inputs.platforms }}
+        run: |
+          VERSION="${INPUT_VERSION#v}"
+          mkdir -p assets
+          for key in $INPUT_PLATFORMS; do
+            case "$key" in
+              darwin-arm64|darwin-x64) name="Magnetic-$VERSION-$key.dmg" ;;
+              win32-x64|win32-arm64) name="Magnetic-$VERSION-$key-setup.exe" ;;
+              linux-*-deb|linux-*-rpm|linux-*-appimage)
+                arch="${key#linux-}"; arch="${arch%-*}"; kind="${key##*-}"
+                [ "$kind" = appimage ] && kind=AppImage
+                name="Magnetic-$VERSION-linux-$arch.$kind" ;;
+              *) echo "Unknown platform key: $key" >&2; exit 1 ;;
+            esac
+            gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --pattern "$name" --dir assets
+            echo "$key=$GITHUB_WORKSPACE/assets/$name" >> pairs.txt
+          done
+          cat pairs.txt
+      - name: Sign latest.json
+        working-directory: src/magentic.ai_editor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAGNETIC_UPDATE_SIGNING_KEY: ${{ secrets.MAGNETIC_UPDATE_SIGNING_KEY }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          mapfile -t pairs < "$GITHUB_WORKSPACE/pairs.txt"
+          ./scripts/publish-public-release.sh "${INPUT_VERSION#v}" "$GITHUB_WORKSPACE/releases" "${pairs[@]}"
