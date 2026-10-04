@@ -34,9 +34,8 @@ jobs:
         with:
           repository: MegneticAi/MegneticAi
           ref: ${{ inputs.ref }}
-          # Read-only deploy key on MegneticAi/MegneticAi (preferred), else a read token.
+          # Read-only deploy key on MegneticAi/MegneticAi.
           ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
-          token: ${{ secrets.SOURCE_REPO_TOKEN }}
           path: src
           persist-credentials: false
       - uses: actions/setup-node@v4
@@ -118,9 +117,8 @@ jobs:
         with:
           repository: MegneticAi/MegneticAi
           ref: ${{ inputs.ref }}
-          # Read-only deploy key on MegneticAi/MegneticAi (preferred), else a read token.
+          # Read-only deploy key on MegneticAi/MegneticAi.
           ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
-          token: ${{ secrets.SOURCE_REPO_TOKEN }}
           path: src
           persist-credentials: false
       - uses: actions/download-artifact@v4
