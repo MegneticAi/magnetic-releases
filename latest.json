@@ -18,28 +18,28 @@
 		},
 		"linux-x64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.deb",
-			"sha256": "4a8b3778ad6bf9a2a929d45fedbc0c185d27206b4caf7ddc4a00af46a04636b0"
+			"sha256": "540f21c47fa69e1548e0be135de2baa484da0bc3112caefdbca6225d7bc02a22"
 		},
 		"linux-x64-rpm": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.rpm",
-			"sha256": "d8cf7fbb3a1552b82a9d08c24e5addbf5341742f93942dd7d9c054165feb4be9"
+			"sha256": "15059379e847ddb97dd3bb452fb9146d704ded6566f2a0df69ce6de028e6458c"
 		},
 		"linux-x64-appimage": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.AppImage",
-			"sha256": "f34beb748e082b1c28a17b4392ac24e693577d72eceba97902fdfd7d11770c46"
+			"sha256": "9a235920d00237f6c14c9c361fd59924c0a8a52c95a6d32df64debde0e80548a"
 		},
 		"linux-arm64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.deb",
-			"sha256": "e8ab06588ee2bf032697a973754ee808e4222f1f7212bcc1e6f3df3dfcb73578"
+			"sha256": "1bd0145b76ee02425cc0a5e6a0b98dca6710593412975061ebc2456c9ed07690"
 		},
 		"linux-arm64-rpm": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.rpm",
-			"sha256": "a4255f6a11589f5fa1691e58d7abcc784792fd954deed8c6e6a59383acd6dc52"
+			"sha256": "0ce1318f21c03b614876fe9ed165422a6c676b88bd9b8c5d2ed5cd02ff7bcd97"
 		},
 		"linux-arm64-appimage": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.AppImage",
-			"sha256": "94daa86baa7c66ab1b36295784064e01edc30114892dd9bae894747b14d393bb"
+			"sha256": "b6e901892b921b9e12f7cc7fce6ece8a9daaa23d2d710f908cbdd1decdcf1001"
 		}
 	},
-	"signature": "226b9VKXJJnyAehbdWcbl60DC56NUnlIDQbGY/Ay6Iu/EMMNt2S+P4/ycJkoaJ9C3lJJJNO5hV6CSXR6gvsSAg=="
+	"signature": "Omxkkp2a6OEtRqzx4Tx1+yc8T6qbncJfnW45zbHp2KOOGYEByzA72v5tzYsD/QCYzR3zIGomKQjRFilVsErRCA=="
 }
