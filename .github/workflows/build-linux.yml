@@ -1,0 +1,145 @@
+name: Build Linux
+
+# Builds the Magnetic Linux packages (.deb, .rpm, .AppImage) from the private source repo on
+# free public-repo runners and publishes them to this repo's release + signed latest.json.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Magnetic version without a leading v (must match product.json)
+        required: true
+        type: string
+      ref:
+        description: Source branch, tag or commit in MegneticAi/MegneticAi
+        default: main
+        type: string
+      arch:
+        description: Which architectures
+        type: choice
+        default: both
+        options: [both, x64, arm64]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magnetic-linux-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: src/magentic.ai_editor
+    steps:
+      - name: Skip unselected arch
+        id: pick
+        working-directory: ${{ github.workspace }}
+        run: |
+          if [ "${{ inputs.arch }}" = both ] || [ "${{ inputs.arch }}" = "${{ matrix.arch }}" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          # Read-only deploy key on MegneticAi/MegneticAi.
+          ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
+          path: src
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          node-version-file: src/magentic.ai_editor/.nvmrc
+          cache: npm
+          cache-dependency-path: src/magentic.ai_editor/package-lock.json
+      - name: Install build and packaging tools
+        if: steps.pick.outputs.run == 'true'
+        working-directory: ${{ github.workspace }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential dbus-x11 dpkg-dev fakeroot g++ libfuse2t64 \
+            libkrb5-dev libsecret-1-dev libx11-dev libxkbfile-dev python-is-python3 rpm xvfb
+      - run: npm ci
+        if: steps.pick.outputs.run == 'true'
+      - name: Check version
+        if: steps.pick.outputs.run == 'true'
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          HAVE="$(node -p "require('./product.json').magneticVersion")"
+          test "${INPUT_VERSION#v}" = "$HAVE" || { echo "product.json is $HAVE, not $INPUT_VERSION" >&2; exit 1; }
+      - name: Build Linux packages
+        if: steps.pick.outputs.run == 'true'
+        env:
+          SKIP_GH_RELEASE: '1'
+          SKIP_MANIFEST: '1'
+          INPUT_VERSION: ${{ inputs.version }}
+        run: ./scripts/release-local.sh "${INPUT_VERSION#v}" "linux-${{ matrix.arch }}"
+      - uses: actions/upload-artifact@v4
+        if: steps.pick.outputs.run == 'true'
+        with:
+          name: magnetic-linux-${{ matrix.arch }}
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.deb
+            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.rpm
+            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.AppImage
+
+  publish:
+    needs: build
+    # Publish whichever architecture built.
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: magnetic-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: releases
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: ${{ inputs.ref }}
+          # Read-only deploy key on MegneticAi/MegneticAi.
+          ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
+          path: src
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: magnetic-linux-*
+          merge-multiple: true
+          path: assets
+      - name: Publish packages + signed latest.json
+        working-directory: src/magentic.ai_editor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAGNETIC_UPDATE_SIGNING_KEY: ${{ secrets.MAGNETIC_UPDATE_SIGNING_KEY }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION="${INPUT_VERSION#v}"
+          pairs=()
+          for arch in x64 arm64; do
+            for kind in deb rpm AppImage; do
+              file="$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-linux-$arch.$kind"
+              key="linux-$arch-$(echo "$kind" | tr '[:upper:]' '[:lower:]')"
+              [ -f "$file" ] && pairs+=("$key=$file")
+            done
+          done
+          [ "${#pairs[@]}" -gt 0 ] || { echo "No Linux packages were built" >&2; exit 1; }
+          ./scripts/publish-public-release.sh "$VERSION" "$GITHUB_WORKSPACE/releases" "${pairs[@]}"
