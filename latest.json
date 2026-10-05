@@ -2,12 +2,20 @@
 	"version": "0.6.0",
 	"magneticVersion": "0.6.0",
 	"orbitVersion": "0.6.0",
-	"releasedAt": "2026-10-04",
+	"releasedAt": "2026-10-05",
 	"assets": {
 		"win32-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-win32-x64-setup.exe",
 			"sha256": "c4b2475d28fe9379fa6e9576c64dfb456ea68eda90d08a7cf613ec6bf1c453e7"
+		},
+		"darwin-arm64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-arm64.dmg",
+			"sha256": "b5f5c6200842196afd0b0f8a11dd1822a973753e6ea8eb8b20522a8af94cbb1f"
+		},
+		"darwin-x64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-x64.dmg",
+			"sha256": "0c4edfa31217354659112a7d9a1c975a829ff23a0983966c8a45cfec9650cc84"
 		}
 	},
-	"signature": "SJBsFrp5XgIiB9/7cYhCUkCPUB0ESIiGC422m5hIt8XS6+thlNcZEtkiCW0+fYgvBn4GTQTpOHuBj40DA+v5BA=="
+	"signature": "0658yXUahRlhj8tINOJquOWd0zZptNqFadiVcs0Rd8ZH5onBXu1PzYJblcoBCoL++nSfo0kwNyScSNQ0L9FHCg=="
 }
