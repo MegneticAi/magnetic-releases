@@ -10,11 +10,11 @@
 		},
 		"darwin-arm64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-arm64.dmg",
-			"sha256": "b5f5c6200842196afd0b0f8a11dd1822a973753e6ea8eb8b20522a8af94cbb1f"
+			"sha256": "10db1097924a6ea0e63083b0b85e0b029350a6261526bc58d0f0bdc45e20eb65"
 		},
 		"darwin-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-x64.dmg",
-			"sha256": "0c4edfa31217354659112a7d9a1c975a829ff23a0983966c8a45cfec9650cc84"
+			"sha256": "80e5573c55c18661904d7e1007fd45c98d3dfacf439e75b673417bea9d2c0a30"
 		},
 		"linux-x64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.deb",
@@ -41,5 +41,5 @@
 			"sha256": "b6e901892b921b9e12f7cc7fce6ece8a9daaa23d2d710f908cbdd1decdcf1001"
 		}
 	},
-	"signature": "bgmC0dIRV3Evanlc2dwX7QqHCXHbchXeLm1L/eDjK8QbkSrL1KdJP3DMp0jhxI2Eb45Ba7CaPsDheNQRarx2BA=="
+	"signature": "+JapmXsCaDpeozMtq5pL/tiBvJfyTFCsIxXgAqXH7cRxYiGBu6dyr67EZqnLhpaWHdwbUbw69gk8XzE4DEwkBw=="
 }
