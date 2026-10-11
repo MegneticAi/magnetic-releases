@@ -26,7 +26,11 @@
 		"linux-arm64-appimage": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-arm64.AppImage",
 			"sha256": "c096ee3e1a96af6e9d7e77d4ef7c529c50da10ae229e8f322153a5ae7d51f4c4"
+		},
+		"win32-x64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-win32-x64-setup.exe",
+			"sha256": "c6a9d3e28de474b1cbda4d86b0d060922a47a2c15b378c441a7e9cbfa9bd78d3"
 		}
 	},
-	"signature": "QzpecPw5cNo1mAZXdDO5p4tDM2+HYAlGdlH3AzASA9z5oSg6+xUxV7GUHDC6/SSy9JH38LrAuoccPQI/7LkIAA=="
+	"signature": "vljabBV7er5DxLE0SWcxzv2MIMBXJ7iR4IfL6nJd5/JXCWyN1tsZ7eJPmDPtpLVPNkkZoZSlSiPd/6OA5AaCBw=="
 }
