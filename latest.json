@@ -1,45 +1,32 @@
 {
-	"version": "0.6.0",
-	"magneticVersion": "0.6.0",
-	"orbitVersion": "0.6.0",
-	"releasedAt": "2026-10-05",
+	"version": "0.6.1",
+	"magneticVersion": "0.6.1",
+	"releasedAt": "2026-10-11",
 	"assets": {
-		"win32-x64": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-win32-x64-setup.exe",
-			"sha256": "149f46f730eaf2c3f9196fda2abc5719324ab9cf29befb501e580e3d24c85b8a"
-		},
-		"darwin-arm64": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-arm64.dmg",
-			"sha256": "10db1097924a6ea0e63083b0b85e0b029350a6261526bc58d0f0bdc45e20eb65"
-		},
-		"darwin-x64": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-darwin-x64.dmg",
-			"sha256": "80e5573c55c18661904d7e1007fd45c98d3dfacf439e75b673417bea9d2c0a30"
-		},
 		"linux-x64-deb": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.deb",
-			"sha256": "540f21c47fa69e1548e0be135de2baa484da0bc3112caefdbca6225d7bc02a22"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-x64.deb",
+			"sha256": "594b55f672b49cb06ec7e4bb1940487494758ae6b5d0055cb4fa1ee30156e1de"
 		},
 		"linux-x64-rpm": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.rpm",
-			"sha256": "15059379e847ddb97dd3bb452fb9146d704ded6566f2a0df69ce6de028e6458c"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-x64.rpm",
+			"sha256": "13b7fcca5a73b0a1375c1a3cfdf181c5cec42067491b0f0e21060d566f13a211"
 		},
 		"linux-x64-appimage": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-x64.AppImage",
-			"sha256": "9a235920d00237f6c14c9c361fd59924c0a8a52c95a6d32df64debde0e80548a"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-x64.AppImage",
+			"sha256": "8bd81ff7850cd2c2a01b1edb3ad421e7e50f381105ee836ca19b279eab9e9ba1"
 		},
 		"linux-arm64-deb": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.deb",
-			"sha256": "1bd0145b76ee02425cc0a5e6a0b98dca6710593412975061ebc2456c9ed07690"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-arm64.deb",
+			"sha256": "319c72e073a5196cafdb21a97b108735ba713037e355be6c2d28b7258571ed43"
 		},
 		"linux-arm64-rpm": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.rpm",
-			"sha256": "0ce1318f21c03b614876fe9ed165422a6c676b88bd9b8c5d2ed5cd02ff7bcd97"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-arm64.rpm",
+			"sha256": "4065fc4c00d68c5f848770448f7f067591bdea8fdc3704a981e83ee9d917667b"
 		},
 		"linux-arm64-appimage": {
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.0/Magnetic-0.6.0-linux-arm64.AppImage",
-			"sha256": "b6e901892b921b9e12f7cc7fce6ece8a9daaa23d2d710f908cbdd1decdcf1001"
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-linux-arm64.AppImage",
+			"sha256": "c096ee3e1a96af6e9d7e77d4ef7c529c50da10ae229e8f322153a5ae7d51f4c4"
 		}
 	},
-	"signature": "+JapmXsCaDpeozMtq5pL/tiBvJfyTFCsIxXgAqXH7cRxYiGBu6dyr67EZqnLhpaWHdwbUbw69gk8XzE4DEwkBw=="
+	"signature": "QzpecPw5cNo1mAZXdDO5p4tDM2+HYAlGdlH3AzASA9z5oSg6+xUxV7GUHDC6/SSy9JH38LrAuoccPQI/7LkIAA=="
 }
