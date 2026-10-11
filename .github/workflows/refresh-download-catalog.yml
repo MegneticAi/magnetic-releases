@@ -1,0 +1,49 @@
+name: Refresh download catalog
+
+# Re-signs the current latest.json and fills `downloads` from installers that are
+# already published. It does not replace `assets`, so the auto-updater stays on
+# this version while the landing can still offer an older file per platform.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magnetic-publish
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: releases
+      - uses: actions/checkout@v4
+        with:
+          repository: MegneticAi/MegneticAi
+          ref: main
+          ssh-key: ${{ secrets.SOURCE_REPO_SSH_KEY }}
+          path: src
+          persist-credentials: false
+      - name: Fill downloads and re-sign
+        working-directory: src/magentic.ai_editor
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAGNETIC_UPDATE_SIGNING_KEY: ${{ secrets.MAGNETIC_UPDATE_SIGNING_KEY }}
+        run: |
+          node scripts/update-latest-json.js --refresh-downloads --seed-missing \
+            --manifest "$GITHUB_WORKSPACE/releases/latest.json"
+      - name: Publish latest.json
+        working-directory: releases
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add latest.json
+          if git diff --cached --quiet; then
+            echo "latest.json is already current"
+          else
+            git commit -m "release: keep previous installers in the download catalog"
+            git push origin HEAD:main
+          fi
