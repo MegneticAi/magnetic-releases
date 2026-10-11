@@ -30,7 +30,15 @@
 		"win32-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-win32-x64-setup.exe",
 			"sha256": "c6a9d3e28de474b1cbda4d86b0d060922a47a2c15b378c441a7e9cbfa9bd78d3"
+		},
+		"darwin-arm64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-darwin-arm64.dmg",
+			"sha256": "1393a670c2542b16566168d01fea605079e79ac0a7780fd4545715ec4d192662"
+		},
+		"darwin-x64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-darwin-x64.dmg",
+			"sha256": "0eee1c6f0034b8f53c0013917a7aaf76bf1be28b31e987c0126ee2d0dde2ec87"
 		}
 	},
-	"signature": "vljabBV7er5DxLE0SWcxzv2MIMBXJ7iR4IfL6nJd5/JXCWyN1tsZ7eJPmDPtpLVPNkkZoZSlSiPd/6OA5AaCBw=="
+	"signature": "rNK9W140WSvIGSqxfArGZovVuzDxEfJjjvaBUkSrrHbcYLJ0T1lmYHyO1khvu/cK9HokLXWwxjVVK3rqv9DPDQ=="
 }
