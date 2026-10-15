@@ -30,6 +30,14 @@
 		"win32-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-win32-x64-setup.exe",
 			"sha256": "0a97f5e6b387cd177b04b16a13ad012a5b5f053c6abd458ce1cf7d742490e1e1"
+		},
+		"darwin-arm64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-darwin-arm64.dmg",
+			"sha256": "67d2ac41450028d12ce04c7659043919fbfbe62d574c1d6a4159c3162005f73f"
+		},
+		"darwin-x64": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-darwin-x64.dmg",
+			"sha256": "023e2a944a55a58ab8da4d308990b8524054e0bc7e7c9a44f3dfe7ab492e9115"
 		}
 	},
 	"downloads": {
@@ -62,13 +70,13 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-win32-x64-setup.exe"
 		},
 		"darwin-arm64": {
-			"version": "0.6.1",
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-darwin-arm64.dmg"
+			"version": "0.6.2",
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-darwin-arm64.dmg"
 		},
 		"darwin-x64": {
-			"version": "0.6.1",
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.1/Magnetic-0.6.1-darwin-x64.dmg"
+			"version": "0.6.2",
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.2/Magnetic-0.6.2-darwin-x64.dmg"
 		}
 	},
-	"signature": "Lk7NhrgMuLECmY25A6OYtrr0rWaWjzRsqwtpC8vQ2E6Bvg3Ujx20Y2gBuXtOGosujrZ5iZDIjR7z7zeaU9cKDw=="
+	"signature": "Dw+k3R4KH4BKUQQmrVYI08Dng9dJd0zxG3GOvl0WBaoL7Y8mq2Id2x0+6oIPCJZkRg/7YaXkwepQbG72a5qhCw=="
 }
