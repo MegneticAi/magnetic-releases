@@ -5,27 +5,27 @@
 	"assets": {
 		"linux-x64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-x64.deb",
-			"sha256": "036f3e5f049fb0edd10342c4aadd2c8f4ef482cbf01948ff334ab5d4158ed793"
+			"sha256": "3294be4a027c3ca0f6f626db1624087c3cbb09159b102ebe6048d67782753733"
 		},
 		"linux-x64-rpm": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-x64.rpm",
-			"sha256": "59c52b5061036a84b0dc534f5fc0e0831606dbe62088c85650869687e34e2dfc"
+			"sha256": "db1d093b0753e2e6e8f73e453f491a2281e7331d901a53db174a65e582ad0b60"
 		},
 		"linux-x64-appimage": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-x64.AppImage",
-			"sha256": "df8ab197a6c67535daa66b31e6cf5790773293bb9ed51c86f4ed376405b38580"
+			"sha256": "b707069edf86184650ff08e9dac0553dbeecc3315f6e4e21e7fba065d0502ecc"
 		},
 		"linux-arm64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.deb",
-			"sha256": "b4310052b7d196b448967e94cc620ae2e9fabf47fe4749c20ea097df7a7a41ee"
+			"sha256": "e54184278b4f709ebe74b095048f91836e65b13db34df0b6801386403a384720"
 		},
 		"linux-arm64-rpm": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.rpm",
-			"sha256": "f8899e2a5d29be75bee47bcfdf4329a7320700f1cdcfdd37d5c1252cb60f798b"
+			"sha256": "08b627c62809d45f6c80803486f0f58987b0668fcc9ed5af1ab87041fac5ab6a"
 		},
 		"linux-arm64-appimage": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.AppImage",
-			"sha256": "18ebcab7a3a6138217c12fbebbd72bdb276ccecac14fbf1dd0132155ea5106c7"
+			"sha256": "67985b0d1bf8926e4de2ac8f806b52bb4f22d09fc52fd694c6cabb9ecbb6990f"
 		}
 	},
 	"downloads": {
@@ -66,5 +66,5 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.3/Magnetic-0.6.3-darwin-x64.dmg"
 		}
 	},
-	"signature": "CKh0Rs7xt2XezX2L1BeRDyz8JcaBQcnF7faEww9fPc7vjFKbEc8NXPjLgbLwHB3xUm/RJHro1OFvOBEdrYCwCA=="
+	"signature": "iOxfBrcxhlPd+RCQf/HxhpH5e6LTBrEzlAHno+XJuQY1DiOp6q2qxQA5AYPfvxMcow5b1746futobEUGxwSzBA=="
 }
