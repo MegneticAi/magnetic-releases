@@ -10,6 +10,18 @@
 		"darwin-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg",
 			"sha256": "7b8c8c0208e1f896901bc16f4ff89e0830c822c48c814f721a1c265ce1cd0d5f"
+		},
+		"linux-arm64-deb": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.deb",
+			"sha256": "222d33e944e47c4ec9b0fde57e07de524528215c1c6fe6fc5bd035739a27ebb0"
+		},
+		"linux-arm64-rpm": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.rpm",
+			"sha256": "45f0b3bbed2431c631dded4f4bbacb883830f8b93d7b4df7f251c4f7d7caca21"
+		},
+		"linux-arm64-appimage": {
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.AppImage",
+			"sha256": "41739c997a59fc0ac0d6f91fe2b40d19e1390ee671885da66b913d4cca1af047"
 		}
 	},
 	"downloads": {
@@ -26,16 +38,16 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-x64.AppImage"
 		},
 		"linux-arm64-deb": {
-			"version": "0.6.4",
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.deb"
+			"version": "0.6.5",
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.deb"
 		},
 		"linux-arm64-rpm": {
-			"version": "0.6.4",
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.rpm"
+			"version": "0.6.5",
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.rpm"
 		},
 		"linux-arm64-appimage": {
-			"version": "0.6.4",
-			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.4/Magnetic-0.6.4-linux-arm64.AppImage"
+			"version": "0.6.5",
+			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.AppImage"
 		},
 		"win32-x64": {
 			"version": "0.6.4",
@@ -50,5 +62,5 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg"
 		}
 	},
-	"signature": "z14dHU1Ik8Mi5HJeHExZePXUdSqEl8PcVVxgLox/xQZ+UdiiltJvmzdl/34rlykd8FiVsJWRRW3K2uz9JYHTAw=="
+	"signature": "ETS4Pl3dfCocxpH+Yz3DTeITOsNvTzqiRIK7JLsCvBkKRej5xhD6j6/IauM3ovdSL3BXqS7fq8u8NoAe1PiACQ=="
 }
