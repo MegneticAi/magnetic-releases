@@ -5,11 +5,11 @@
 	"assets": {
 		"darwin-arm64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-arm64.dmg",
-			"sha256": "c77b5b88d981d932c514b821cd691f47eaec533632a4b0b6d3f3c50ecd847cf0"
+			"sha256": "5f9e35add4514d74af092cad0af8672d75e0f112236733e639b6b7006a541895"
 		},
 		"darwin-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg",
-			"sha256": "9703d2962c9007b91cd4572a2cbfe059a719f92e9d172f78170072f5fde5dee4"
+			"sha256": "7b8c8c0208e1f896901bc16f4ff89e0830c822c48c814f721a1c265ce1cd0d5f"
 		}
 	},
 	"downloads": {
@@ -50,5 +50,5 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg"
 		}
 	},
-	"signature": "TYh6XHI8XNMR8eI4cecs5V3d49wriVHKEylNXHQ7mwvOEGGNPHkpRAUH3DQKBLZOu/Kuw1GTmmlqFtUtIqNXBw=="
+	"signature": "z14dHU1Ik8Mi5HJeHExZePXUdSqEl8PcVVxgLox/xQZ+UdiiltJvmzdl/34rlykd8FiVsJWRRW3K2uz9JYHTAw=="
 }
