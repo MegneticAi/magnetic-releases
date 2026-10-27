@@ -96,9 +96,9 @@ jobs:
           if-no-files-found: error
           retention-days: 14
           path: |
-            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.deb
-            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.rpm
-            src/magentic.ai_editor/Magnetic-*-linux-${{ matrix.arch }}.AppImage
+            src/magentic.ai_editor/Megnetic-*-linux-${{ matrix.arch }}.deb
+            src/magentic.ai_editor/Megnetic-*-linux-${{ matrix.arch }}.rpm
+            src/magentic.ai_editor/Megnetic-*-linux-${{ matrix.arch }}.AppImage
 
   publish:
     needs: build
@@ -136,7 +136,7 @@ jobs:
           pairs=()
           for arch in x64 arm64; do
             for kind in deb rpm AppImage; do
-              file="$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-linux-$arch.$kind"
+              file="$GITHUB_WORKSPACE/assets/Megnetic-$VERSION-linux-$arch.$kind"
               key="linux-$arch-$(echo "$kind" | tr '[:upper:]' '[:lower:]')"
               [ -f "$file" ] && pairs+=("$key=$file")
             done

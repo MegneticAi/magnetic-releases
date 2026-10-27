@@ -101,7 +101,7 @@ jobs:
           name: magnetic-windows-x64
           if-no-files-found: error
           retention-days: 14
-          path: src/magentic.ai_editor/Magnetic-*-win32-x64-setup.exe
+          path: src/magentic.ai_editor/Megnetic-*-win32-x64-setup.exe
 
   publish:
     needs: build
@@ -134,4 +134,4 @@ jobs:
         run: |
           VERSION="${INPUT_VERSION#v}"
           ./scripts/publish-public-release.sh "$VERSION" "$GITHUB_WORKSPACE/releases" \
-            "win32-x64=$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-win32-x64-setup.exe"
+            "win32-x64=$GITHUB_WORKSPACE/assets/Megnetic-$VERSION-win32-x64-setup.exe"

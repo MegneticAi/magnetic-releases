@@ -51,12 +51,12 @@ jobs:
           mkdir -p assets
           for key in $INPUT_PLATFORMS; do
             case "$key" in
-              darwin-arm64|darwin-x64) name="Magnetic-$VERSION-$key.dmg" ;;
-              win32-x64|win32-arm64) name="Magnetic-$VERSION-$key-setup.exe" ;;
+              darwin-arm64|darwin-x64) name="Megnetic-$VERSION-$key.dmg" ;;
+              win32-x64|win32-arm64) name="Megnetic-$VERSION-$key-setup.exe" ;;
               linux-*-deb|linux-*-rpm|linux-*-appimage)
                 arch="${key#linux-}"; arch="${arch%-*}"; kind="${key##*-}"
                 [ "$kind" = appimage ] && kind=AppImage
-                name="Magnetic-$VERSION-linux-$arch.$kind" ;;
+                name="Megnetic-$VERSION-linux-$arch.$kind" ;;
               *) echo "Unknown platform key: $key" >&2; exit 1 ;;
             esac
             gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --pattern "$name" --dir assets

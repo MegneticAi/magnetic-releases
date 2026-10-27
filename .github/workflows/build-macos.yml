@@ -82,13 +82,13 @@ jobs:
         if: steps.pick.outputs.run == 'true'
         run: |
           VERSION="$(node -p "require('./product.json').magneticVersion")"
-          ./scripts/verify-macos-app.sh "../Magnetic-darwin-${{ matrix.arch }}/Magnetic.app" ${{ matrix.file_arch }} "$VERSION"
+          ./scripts/verify-macos-app.sh "../Magnetic-darwin-${{ matrix.arch }}/Megnetic.app" ${{ matrix.file_arch }} "$VERSION"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@v4
         if: steps.pick.outputs.run == 'true'
         with:
-          name: Magnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}
-          path: src/magentic.ai_editor/Magnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}.dmg
+          name: Megnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}
+          path: src/magentic.ai_editor/Megnetic-${{ env.VERSION }}-darwin-${{ matrix.arch }}.dmg
           if-no-files-found: error
           retention-days: 14
 
@@ -114,7 +114,7 @@ jobs:
           persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          pattern: Magnetic-*-darwin-*
+          pattern: Megnetic-*-darwin-*
           merge-multiple: true
           path: assets
       - name: Publish DMGs + signed latest.json
@@ -126,7 +126,7 @@ jobs:
           VERSION="$(node -p "require('./product.json').magneticVersion")"
           pairs=()
           for arch in arm64 x64; do
-            file="$GITHUB_WORKSPACE/assets/Magnetic-$VERSION-darwin-$arch.dmg"
+            file="$GITHUB_WORKSPACE/assets/Megnetic-$VERSION-darwin-$arch.dmg"
             [ -f "$file" ] && pairs+=("darwin-$arch=$file")
           done
           [ "${#pairs[@]}" -gt 0 ] || { echo "No DMGs were built" >&2; exit 1; }
