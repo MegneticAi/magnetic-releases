@@ -1,15 +1,15 @@
 {
 	"version": "0.6.5",
 	"magneticVersion": "0.6.5",
-	"releasedAt": "2026-10-27",
+	"releasedAt": "2026-11-12",
 	"assets": {
 		"darwin-arm64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-arm64.dmg",
-			"sha256": "5f9e35add4514d74af092cad0af8672d75e0f112236733e639b6b7006a541895"
+			"sha256": "f761de3efcab0cd21301d05a44bc759f66f7481fd8464b8aeecd91c82094d52b"
 		},
 		"darwin-x64": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg",
-			"sha256": "7b8c8c0208e1f896901bc16f4ff89e0830c822c48c814f721a1c265ce1cd0d5f"
+			"sha256": "24997732a13705fdbe2c0b8512c86c3e8ce98e9272e4e5b566e72787294db96d"
 		},
 		"linux-arm64-deb": {
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-linux-arm64.deb",
@@ -78,5 +78,5 @@
 			"url": "https://github.com/MegneticAi/magnetic-releases/releases/download/v0.6.5/Megnetic-0.6.5-darwin-x64.dmg"
 		}
 	},
-	"signature": "vPw8hb5P9AWb3jlnavEaf5benYzqLBaoB6BqHrqIQTm1mTDLFukMRgQ71FIMjeirEV+cBqmj/Mp8DwkLPH4hDQ=="
+	"signature": "meANLgRk+wAVOobQjDTptd5HHi6IrshTvnuJDDykFczyhR3WSJkR6zJNfuq0jm/gQysD8ZvfkQzFI6pfB2dFBg=="
 }
