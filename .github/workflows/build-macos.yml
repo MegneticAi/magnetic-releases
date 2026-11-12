@@ -31,7 +31,8 @@ jobs:
         include:
           - arch: arm64
             file_arch: arm64
-            runner: macos-14
+            # macos-14 arm64 jobs cancelled instantly in MegneticAi CI; use macos-15.
+            runner: macos-15
           - arch: x64
             file_arch: x86_64
             runner: macos-15-intel
